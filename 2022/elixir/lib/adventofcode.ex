@@ -2,12 +2,17 @@ defmodule Adventofcode do
   @moduledoc """
   Documentation for `Adventofcode`.
   """
-  @spec findHighestCalorieElf(list(list(integer()))) :: integer()
   def findHighestCalorieElf(elfs) do
-    sums = Enum.map(elfs, fn elf ->
-      Enum.sum(elf)
-    end)
+    elfs
+    |> String.split("\n\n")
+    |> Enum.map(&sumAnElfsFoodCaloryCount(&1))
+    |> Enum.max()
+  end
 
-    Enum.max(sums)
+  defp sumAnElfsFoodCaloryCount(elf) do
+    elf
+    |> String.split("\n", trim: true)
+    |> Enum.map(&(String.to_integer(&1)))
+    |> Enum.sum()
   end
 end
