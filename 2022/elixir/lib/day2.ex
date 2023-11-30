@@ -1,4 +1,5 @@
 defmodule Day2 do
+  @spec sanitizeRounds(binary()) :: [binary()]
   def sanitizeRounds(rounds) do
     rounds
     |> String.split("\n", trim: true)
@@ -30,7 +31,6 @@ defmodule Day2 do
       "C X" -> 6 + 1
       "C Y" -> 0 + 2
       "C Z" -> 3 + 3
-      _ -> 0
     end
   end
 
@@ -45,7 +45,6 @@ defmodule Day2 do
       "C Y" -> "C Z"
       "C X" -> "C Y"
       "C Z" -> "C X"
-      _ -> ""
     end
   end
 end

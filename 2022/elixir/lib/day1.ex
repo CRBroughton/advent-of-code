@@ -19,7 +19,6 @@ defmodule Day1 do
     |> sanitizeElfs()
     |> Enum.sort()
     |> Enum.take(count)
-    |> IO.inspect()
     |> Enum.sum()
   end
 
