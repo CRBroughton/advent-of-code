@@ -15,7 +15,6 @@ defmodule Day2 do
     rounds
     |> sanitizeRounds()
     |> Enum.map(&fixTheMatch(&1))
-    |> IO.inspect()
     |> Enum.map(&fight(&1))
     |> Enum.sum()
   end
