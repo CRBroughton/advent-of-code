@@ -34,4 +34,46 @@ defmodule Day1 do
     end)
     |> Enum.sum()
   end
+
+  def matchStringToInt(number) do
+    case number do
+      "one" -> 1
+      "two" -> 2
+      "three" -> 3
+      "four" -> 4
+      "five" -> 5
+      "six" -> 6
+      "seven" -> 7
+      "eight" -> 8
+      "nine" -> 9
+      _ -> {y, _} = Integer.parse(number)
+      y
+    end
+  end
+
+  def sumTheSingleStringValues(input) do
+    regex = ~r"(?=(\d|one|two|three|four|five|six|seven|eight|nine))"
+
+    num_list =
+      Regex.scan(regex, input)
+      |> Enum.map(&List.last/1)
+      |> List.flatten()
+
+    first = List.first(num_list)
+          |> matchStringToInt()
+    last = List.last(num_list)
+          |> matchStringToInt()
+
+    Enum.join([first, last])
+    |> String.to_integer()
+  end
+
+  def sumTheStringValues(input) do
+    input
+    |> sanitizeRounds()
+    |> Enum.map(fn line -> sumTheSingleStringValues(line)
+    end)
+    |> Enum.sum()
+  end
+
 end
