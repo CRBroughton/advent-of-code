@@ -46,34 +46,29 @@ defmodule Day1 do
       "seven" -> 7
       "eight" -> 8
       "nine" -> 9
-      _ -> {y, _} = Integer.parse(number)
-      y
+      _ -> {value, _} = Integer.parse(number)
+      value
     end
   end
 
   def sumTheSingleStringValues(input) do
     regex = ~r"(?=(\d|one|two|three|four|five|six|seven|eight|nine))"
 
-    num_list =
+    numList =
       Regex.scan(regex, input)
       |> Enum.map(&List.last/1)
       |> List.flatten()
 
-    first = List.first(num_list)
-          |> matchStringToInt()
-    last = List.last(num_list)
-          |> matchStringToInt()
-
-    Enum.join([first, last])
+    Enum.join([List.first(numList) |> matchStringToInt(), List.last(numList) |> matchStringToInt()])
     |> String.to_integer()
   end
 
   def sumTheStringValues(input) do
     input
     |> sanitizeRounds()
-    |> Enum.map(fn line -> sumTheSingleStringValues(line)
+    |> Enum.map(fn line ->
+      sumTheSingleStringValues(line)
     end)
     |> Enum.sum()
   end
-
 end
