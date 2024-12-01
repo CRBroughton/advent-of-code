@@ -7,26 +7,16 @@ defmodule Day1 do
 
     {lefts, rights} = Enum.map(lines, fn line ->
       [left, right] = String.split(line)
-        getNumbers(left, right)
+      {String.to_integer(left), String.to_integer(right)}
     end)
     |> Enum.unzip()
     Enum.zip(Enum.sort(lefts), Enum.sort(rights))
   end
 
-  @spec getNumbers(String.t(), String.t()) :: {integer(), integer()}
-  def getNumbers(first, second) do
-    {String.to_integer(first), String.to_integer(second)}
-  end
-
-  @spec getDifference(integer_tuple()) :: number()
-  def getDifference(input) do
-    abs(elem(input, 0) - elem(input, 1))
-  end
-
   @spec sumUpDifference(list({integer(), integer()})) :: integer()
   def sumUpDifference(list) do
     differences = Enum.map(list, fn {left, right} ->
-      getDifference({left, right})
+      abs(left - right)
     end)
     Enum.sum(differences)
   end
