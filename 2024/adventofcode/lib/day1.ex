@@ -2,6 +2,7 @@ defmodule Day1 do
   @type integer_tuple :: {integer(), integer()}
 
 
+  @spec createLists(String.t()) :: {list(), list()}
   def createLists(input) do
     lines = String.split(input, "\n", trim: true)
 
@@ -33,6 +34,7 @@ defmodule Day1 do
     Enum.sum(differences)
   end
 
+  @spec sumUpSimilarities(String.t()) :: number()
   def sumUpSimilarities(input) do
     {lefts, rights} = createLists(input)
     frequencies = Enum.frequencies(rights)
