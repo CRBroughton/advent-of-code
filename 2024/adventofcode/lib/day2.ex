@@ -34,14 +34,27 @@ defmodule Day2 do
     {:ok, allAreValid}
   end
 
+  @spec isReportSafe([number()]) :: boolean()
+  def isReportSafe(report) do
+    {:ok, monotonic_valid} = checkMonotonicGuard(report)
+    {:ok, adjacency_valid} = checkAdjacencyGuard(report)
+
+    monotonic_valid && adjacency_valid
+  end
+
   @spec result(binary()) :: non_neg_integer()
   def result(input) do
     createReportArrays(input)
     |> Enum.count(fn report ->
-      {:ok, monotonic_valid} = checkMonotonicGuard(report)
-      {:ok, adjacency_valid} = checkAdjacencyGuard(report)
-
-      monotonic_valid && adjacency_valid
+      if isReportSafe(report) do
+        true
+      else
+        0..(length(report) - 1)
+        |> Enum.any?(fn index ->
+          dampenedReport = List.delete_at(report, index)
+          isReportSafe(dampenedReport)
+        end)
+      end
     end)
   end
 end
