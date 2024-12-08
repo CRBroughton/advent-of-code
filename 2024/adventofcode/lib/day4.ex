@@ -1,11 +1,11 @@
 defmodule Day4 do
   def createCharacterGridAndGridSize(input) do
-    rows = String.split(input, "\n", trim: true)
+    rows = input
+           |> String.trim()
+           |> String.split("\n", trim: true)
+           |> Enum.map(&String.graphemes/1)
+
     gridSize = length(rows)
-
-    rows
-    |> Enum.map(&String.graphemes/1)
-
     {rows, gridSize}
   end
 
@@ -41,7 +41,7 @@ defmodule Day4 do
       end
     end
 
-    characters == ["X", "M", "A", "S"]
+    Enum.all?(characters) and characters == ["X", "M", "A", "S"]
   end
 
   def count_all_xmas(input) do
